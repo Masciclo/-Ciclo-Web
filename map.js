@@ -222,7 +222,7 @@ $(document).ready(function(){
 
       popup.on('close', function(e) {
         // 
-        map.geSource('selected').setData({"type":"FeatureCollection", "features":[]});
+        map.getSource('selected').setData({"type":"FeatureCollection", "features":[]});
       });
 
   }
