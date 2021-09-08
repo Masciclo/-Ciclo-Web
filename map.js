@@ -1,5 +1,9 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFzY2ljbG8iLCJhIjoiY2ttcnp6eWNuMGQydTJvcGYzeGVsd2RqbSJ9.YqyHFex6gmdhgJoICN_V9A';
 var map;
+var closeDescription;
+var descriptionSection;
+
+var isLayerChecked;
 var evaluacionCategories = {
   'Ciclovía Aprobada':'#6db86b', 
   'Ciclovía Reprobada':'#ff0000',
@@ -22,6 +26,9 @@ var geojson = {
 };
 
 $(document).ready(function(){
+  closeDescription = document.querySelectorAll('.close-description');
+  descriptionSection = document.getElementById('description-section');
+
   var popup;
   map = new mapboxgl.Map({
     container: 'map', // container ID
@@ -29,6 +36,10 @@ $(document).ready(function(){
     center: [-70.6518120833, -33.44807677931364], // starting position [lng, lat]
     zoom: 10 // starting zoom
   });
+
+  // navigation conteol
+  var navigationControl = new mapboxgl.NavigationControl();
+  map.addControl(navigationControl, 'bottom-right');
   
   map.on("load",()=>{
     console.log("map loading")
@@ -143,7 +154,8 @@ $(document).ready(function(){
     map.addControl(
       new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl
+        mapboxgl: mapboxgl,
+        placeholder:'Buscar...'
       }),
       'top-left'
     );
@@ -208,6 +220,11 @@ $(document).ready(function(){
       .setHTML(popupContent)
       .addTo(map);
 
+      popup.on('close', function(e) {
+        // 
+        map.geSource('selected').setData({"type":"FeatureCollection", "features":[]});
+      });
+
   }
 
   function getCycloviaPopupContent(feature) {
@@ -262,47 +279,6 @@ $(document).ready(function(){
     infoWindow.toggleClass("closed");
   });
 
-  let tipologiaCheckbox = $('#tipologia');
-  let evaluacionCheckbox = $('#evaluacion');
-
-  // toggle the collape and layer section
-  evaluacionCheckbox.on("change", function(e) {
-    let { id, checked }= e.target;
-
-    // update the layer on the map
-    setLayout(checked, id);
-
-    // toggle the collapse section
-    let collapseId = 'layer-' + id;
-    toggleCollapse(collapseId, checked);
-
-
-    toggleCollapse('layer-tipologia');
-    setLayout(false, 'tipologia');
-    tipologiaCheckbox.prop( "checked", false );
-
-    let textId = 'text-' + id;
-    toggleDescriptionText(textId, checked);
-  });
-
-  tipologiaCheckbox.on("change", function(e) {
-    let { id, checked }= e.target;
-
-    // update the layer on the map
-    setLayout(checked, id);
-
-    // toggle the collapse section
-    let collapseId = 'layer-' + id;
-    toggleCollapse(collapseId, checked);
-
-    toggleCollapse('layer-evaluacion');
-    setLayout(false, 'evaluacion');
-    evaluacionCheckbox.prop( "checked", false );
-
-    let textId = 'text-' + id;
-    toggleDescriptionText(textId, checked);
-  });
-
   function toggleCollapse(collapseId, isChecked=false) {
     let myCollapse = document.getElementById(collapseId);
     let bsCollapse = new bootstrap.Collapse(myCollapse, {toggle:false});
@@ -317,34 +293,134 @@ $(document).ready(function(){
 
   function toggleDescriptionText(elementId, isVisible) {
     $('.description-text').each(function(i) {
-      console.log(this.classList);
-      if(!this.classList.contains('d-none')) {
-        this.classList.add('d-none');
-      }
+      // console.log(this.classList);
+      // if(!this.classList.contains('d-none')) {
+      //   this.classList.add('d-none');
+      // }
     });
 
     if(isVisible) {
       $('#'+elementId).removeClass('d-none');
     } else {
-      $('#general-text').removeClass('d-none');
+      $('#'+elementId).addClass('d-none');
+    } 
+    
+  }
+
+  class LegendControl {
+    constructor() {
+      this._container = document.createElement('div');
+    }
+
+    updateLegendContent(categories, title) {
+      let html = '';
+      for (const key in categories) {
+        if (Object.hasOwnProperty.call(categories, key)) {
+          const color = categories[key];
+          html += `<div class="d-flex"><div class="feature-line" style="background-color:${color};"></div>${key}</div>`
+        }
+      }
+      
+      console.log(this._container);
+      this._container.innerHTML = `<div class="legend-title">${title}</div>`;
+      this._container.innerHTML += `<div class="legend-body">${html}</div>`;
+    }
+
+    setDefaultContent() {
+      this._container.innerHTML = `<div class="legend-body">
+        <div class="d-flex"><div class="feature-line" style="background-color:#37C1EB;"></div>Leyenda 1</div>
+        <div class="d-flex"><div class="feature-line" style="background-color:#272E53;"></div>Leyenda 2</div>
+      </div>`;
+
+    }
+
+    onAdd(map) {
+      this._map = map;     
+      this._container.classList.add("legend-container");
+
+      // populate the container with content
+      // this._container.innerHTML = "Legend Container";
+      // return the container
+      return this._container;
+    }
+
+    onRemove() {
+      this._container.parentNode.removeChild(this._container);
+      this._map = undefined;
+    }
+  }
+
+  // control instance
+  let legendControl = new LegendControl();
+  legendControl.setDefaultContent();
+
+  map.addControl(legendControl, 'bottom-left');
+
+
+  // toggle the legend and legend info
+  let tipologiaCheckbox = $('#tipologia');
+  let evaluacionCheckbox = $('#evaluacion');
+
+  // toggle the collape and layer section
+  evaluacionCheckbox.on("change", function(e) {
+    handleLayerChange(e, 'EVALUACIÓN DE CALIDAD');
+  });
+
+  tipologiaCheckbox.on("change", function(e) {
+    handleLayerChange(e, 'TIPOLOGÍA DE CICLOVÍA');
+  });
+
+  function handleLayerChange(e, layerTitle) {
+    let { id, checked }= e.target;
+
+    // update the layer on the map
+    setLayout(checked, id);
+
+    // toggle the collapse section
+    let collapseId = 'layer-' + id;
+    toggleCollapse(collapseId, checked);
+
+    // toggleCollapse('layer-evaluacion');
+    legendControl.updateLegendContent(tipologiaCategories, layerTitle);
+    isLayerChecked = checked;
+    seDefaultLegendContent();
+
+    let otherLayer = id == 'evaluacion' ? 'tipologia' : 'evaluacion';
+    setLayout(false, otherLayer);
+    $(`#${otherLayer}`).prop( "checked", false );
+
+    let textId = 'text-' + id;
+    toggleDescriptionText(textId, checked);
+    toggleDescriptionText(`text-${otherLayer}`, !checked);
+
+
+    // toggle
+    openDescriptionSection(checked, textId);
+  }
+
+  function seDefaultLegendContent() {
+    if(!isLayerChecked) {
+      legendControl.setDefaultContent();
     }
     
   }
 
-  // update legend
-  function updateLegend(categories, legendId) {
-    let html = '';
-    for (const key in categories) {
-      if (Object.hasOwnProperty.call(categories, key)) {
-        const color = categories[key];
-        html += `<div class="d-flex"><div class="feature-line" style="background-color:${color};"></div>${key}</div>`
-      }
+  // close the description section
+  closeDescription.forEach(span => {
+    span.onclick = function(e) {
+      descriptionSection.classList.toggle('close');
     }
- 
-    $('#' + legendId).html(html);
+  });
+
+  function openDescriptionSection(checked, textId) {
+    if(checked) {
+      descriptionSection.classList.remove('close');
+    } 
   }
 
-  updateLegend(tipologiaCategories, 'layer-tipologia');
-  updateLegend(evaluacionCategories, 'layer-evaluacion');
+  
+
 });
+
+// legend container
 
