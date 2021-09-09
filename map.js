@@ -41,6 +41,18 @@ $(document).ready(function(){
   var navigationControl = new mapboxgl.NavigationControl();
   map.addControl(navigationControl, 'bottom-right');
   
+  // direction control
+  var directions = new MapboxDirections({
+    accessToken:mapboxgl.accessToken,
+    interactive:false,
+    unit: 'metric',
+    profile: 'mapbox/cycling'
+  });
+
+  // add to your mapboxgl map
+  map.addControl(directions, 'top-right');
+
+
   map.on("load",()=>{
     console.log("map loading")
     // add map layers
@@ -155,6 +167,7 @@ $(document).ready(function(){
       new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
+
         placeholder:'Buscar...'
       }),
       'top-left'
