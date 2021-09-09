@@ -47,106 +47,108 @@
   <!-- </header> -->
   
   <main class="container-fluid">
+    <div id="map"></div>
+    
     <div class="scroll-section">
-      <div id="map"></div>
+      <div class="info-window closed" id="info-window">
+        <div class="layers">
+          <div class="layer">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="evaluacion">
+              <label class="form-check-label" for="evaluacion">
+              Calidad
+              </label>
+            </div>
+
+            <div class="collapse collapse-legend" id="layer-evaluacion"></div>
+          </div>
+
+          <div class="layer">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="tipologia">
+              <label class="form-check-label" for="tipologia">
+                Tipologia
+              </label>
+            </div>
+
+            <div class="collapse collapse-legend" id="layer-tipologia"></div>
+          </div>
+        </div>
+        
+        <div class="toggle-button" id="toggle-button">
+          <span>
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+
+          <span>
+            <i class="fa fa-angle-double-left"></i>
+          </span>
+        </div>
+
+        <!--  -->
+        <div class="info-section">
+          <div class="info-header">
+            <h3>356 Km</h3>
+            <h4 class="">Ciclovías Sonstruidas</h4>
+          </div>
+
+          <div class="info-body">
+            <!-- <p class="my-0">Fecha: oct. 2019 – ene. 2020</p> -->
+
+            <p class="description-text my-1" id="general-text">
+              El catastro de ciclovías 2020 contempla toda la infraestructura exclusivamente construida para 
+              el uso de bicicletas dentro del área urbana de 34 comunas de la Región Metropolitana. Se 
+              efectuó un levantamiento exhaustivo de cada tramo de ciclovías e intersección en base a 17 
+              variables consultables cliqueando los tramos del mapa
+            </p>
+
+
+            <div class="p info-footer">
+              Quieres saber como generamos nuestros datos 
+              <a href="">clic aquí</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="description-section close" id="description-section">
+          <div class="d-none" id="text-tipologia">
+            <div class="description-header">
+              <h3>
+                <span class="close-description">
+                  <i class="fa fa-play"></i>
+                </span>
+                Tipologia
+              </h3>
+            </div>
+            <p class="description-text my-1" >
+              Las tipologías de ciclovías buscan identificar familias de pistas exclusivas para ciclistas dependiendo donde se ubican en espacio público. Caracterizarlas es relevante para identificar los conflictos con el flujo motorizado o peatonal que la infraestructura deberá mitigar por medio de su diseño. La evaluación calidad se evaluará de manera distinta para cada tipología, por lo que es clave tener en cuenta la heterogeneidad de la red.
+            </p>
+          </div>
+
+          <div class="d-none" id="text-evaluacion">
+            <div class="description-header">
+              <h3> 
+                <span class="close-description">
+                  <i class="fa fa-play"></i>
+                </span>
+                Calidad
+              </h3>
+            </div>
+            <p class="description-text my-1" >
+              La evaluación de calidad es un indicador para cruces y vías ciclables,  hecho en base a de 17 variables, dentro de las cuales se incluyen los anchos de vías, ancho y tipos de segregación con el flujo vehicular, la materialidad, señalización, etc. Toma como referencia manuales nacionales e internacionales buscando identificar la infraestructura que no cumple con los mínimos de calidad para declararla funcional.
+            </p>
+
+          </div>
+        </div>
+      </div>
 
       <div class="more-content">
         <h2 class="text-center my-2">DASHBOARD</h2>
       </div>
-    </div>
-    
-    <div class="info-window closed" id="info-window">
-      <div class="layers">
-        <div class="layer">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="evaluacion">
-            <label class="form-check-label" for="evaluacion">
-             Calidad
-            </label>
-          </div>
-
-          <div class="collapse collapse-legend" id="layer-evaluacion"></div>
-        </div>
-
-        <div class="layer">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="tipologia">
-            <label class="form-check-label" for="tipologia">
-              Tipologia
-            </label>
-          </div>
-
-          <div class="collapse collapse-legend" id="layer-tipologia"></div>
-        </div>
-      </div>
       
-      <div class="toggle-button" id="toggle-button">
-        <span>
-          <i class="fa fa-angle-double-right"></i>
-        </span>
-
-        <span>
-          <i class="fa fa-angle-double-left"></i>
-        </span>
-      </div>
-
-      <!--  -->
-      <div class="info-section">
-        <div class="info-header">
-          <h3>356 Km</h3>
-          <h4 class="">Ciclovías Sonstruidas</h4>
-        </div>
-
-        <div class="info-body">
-          <!-- <p class="my-0">Fecha: oct. 2019 – ene. 2020</p> -->
-
-          <p class="description-text my-1" id="general-text">
-            El catastro de ciclovías 2020 contempla toda la infraestructura exclusivamente construida para 
-            el uso de bicicletas dentro del área urbana de 34 comunas de la Región Metropolitana. Se 
-            efectuó un levantamiento exhaustivo de cada tramo de ciclovías e intersección en base a 17 
-            variables consultables cliqueando los tramos del mapa
-          </p>
-
-
-          <div class="p info-footer">
-            Quieres saber como generamos nuestros datos 
-            <a href="">clic aquí</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="description-section close" id="description-section">
-        <div class="d-none" id="text-tipologia">
-          <div class="description-header">
-            <h3>
-              <span class="close-description">
-                <i class="fa fa-play"></i>
-              </span>
-              Tipologia
-            </h3>
-          </div>
-          <p class="description-text my-1" >
-            Las tipologías de ciclovías buscan identificar familias de pistas exclusivas para ciclistas dependiendo donde se ubican en espacio público. Caracterizarlas es relevante para identificar los conflictos con el flujo motorizado o peatonal que la infraestructura deberá mitigar por medio de su diseño. La evaluación calidad se evaluará de manera distinta para cada tipología, por lo que es clave tener en cuenta la heterogeneidad de la red.
-          </p>
-        </div>
-
-        <div class="d-none" id="text-evaluacion">
-          <div class="description-header">
-            <h3> 
-              <span class="close-description">
-                <i class="fa fa-play"></i>
-              </span>
-              Calidad
-            </h3>
-          </div>
-          <p class="description-text my-1" >
-            La evaluación de calidad es un indicador para cruces y vías ciclables,  hecho en base a de 17 variables, dentro de las cuales se incluyen los anchos de vías, ancho y tipos de segregación con el flujo vehicular, la materialidad, señalización, etc. Toma como referencia manuales nacionales e internacionales buscando identificar la infraestructura que no cumple con los mínimos de calidad para declararla funcional.
-          </p>
-
-        </div>
-      </div>
     </div>
   </main>
+
   <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
   <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
