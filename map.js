@@ -393,8 +393,9 @@ $(document).ready(function(){
     let collapseId = 'layer-' + id;
     toggleCollapse(collapseId, checked);
 
+    let categories = id == 'evaluacion' ? evaluacionCategories : tipologiaCategories;
     // toggleCollapse('layer-evaluacion');
-    legendControl.updateLegendContent(tipologiaCategories, layerTitle);
+    legendControl.updateLegendContent(categories, layerTitle);
     isLayerChecked = checked;
     seDefaultLegendContent();
 

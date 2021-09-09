@@ -19,9 +19,9 @@
     integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 </head>
 <body>
-  <header>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-      <div class="container">
+  <!-- <header> -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
         <a class="navbar-brand" href="/">MasCiclo</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,9 +44,9 @@
         </div>
       </div>
     </nav>
-  </header>
+  <!-- </header> -->
   
-  <div class="container-fluid">
+  <main class="container-fluid">
     <div class="scroll-section">
       <div id="map"></div>
 
@@ -55,8 +55,7 @@
       </div>
     </div>
     
-    <div class="info-window" id="info-window">
-
+    <div class="info-window closed" id="info-window">
       <div class="layers">
         <div class="layer">
           <div class="form-check">
@@ -83,11 +82,11 @@
       
       <div class="toggle-button" id="toggle-button">
         <span>
-          <i class="fa fa-angle-double-left"></i>
+          <i class="fa fa-angle-double-right"></i>
         </span>
 
         <span>
-          <i class="fa fa-angle-double-right"></i>
+          <i class="fa fa-angle-double-left"></i>
         </span>
       </div>
 
@@ -147,7 +146,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </main>
   <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
   <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
