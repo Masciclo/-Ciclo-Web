@@ -423,6 +423,15 @@ $(document).ready(function(){
   closeDescription.forEach(span => {
     span.onclick = function(e) {
       descriptionSection.classList.toggle('close');
+
+      // toggle the checkbox
+      let checkboxId = e.target.dataset.id;
+      console.log(checkboxId);
+      
+      $(`#${checkboxId}`).click();
+
+      // toggle the legend
+      legendControl.setDefaultContent();
     }
   });
 

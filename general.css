@@ -32,6 +32,7 @@ main.container-fluid {
   height: auto;
   overflow-x: hidden;
   overflow-y: auto;
+  direction: rtl;
 }
 
 .more-content {
@@ -120,6 +121,7 @@ svg.mapboxgl-ctrl-geocoder--icon.mapboxgl-ctrl-geocoder--icon-search {
   height: 75vh;
   overflow-y: auto;
   overflow-x: hidden;
+  direction: ltr;
   /* transition: all .5s linear; */
 }
 
@@ -168,6 +170,25 @@ svg.mapboxgl-ctrl-geocoder--icon.mapboxgl-ctrl-geocoder--icon-search {
   border-bottom: 1px solid var(--gray-2);
   padding:0.5rem 0.25rem;
   font-size: 1rem;
+}
+
+.layer .btn-div {
+  background: gray;
+  height: 18px;
+  width: 18px;
+  border-radius: 2px;
+  margin-right: 00.25rem;
+}
+
+.layer > .form-check {
+  align-items: center;
+}
+
+.layer input[type='checkbox'] {
+  opacity: 0;
+  height: 18px;
+  line-height: 1;
+  width: 18px;
 }
 
 .description-section {
@@ -241,6 +262,7 @@ svg.mapboxgl-ctrl-geocoder--icon.mapboxgl-ctrl-geocoder--icon-search {
   flex-direction: column;
   align-items: center;
   display: flex;
+  direction: ltr;
   justify-content: center;
 }
 
@@ -283,6 +305,8 @@ svg.mapboxgl-ctrl-geocoder--icon.mapboxgl-ctrl-geocoder--icon-search {
 .legend-body > div {
   align-items: center;
 }
+
+/* extra large screen */
 
 @media screen and (max-width: 960px) {
   .navbar {
