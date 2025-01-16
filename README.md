@@ -1,6 +1,6 @@
 # 🌍 Ciclo-Web
 
-![🌍 Scope](https://your-image-link.com/portada.png)
+![Image](https://github.com/user-attachments/assets/50d784c3-38ad-4ad1-9f1e-2afe39c9a5d3)
 
 ## 📜 Description
 
